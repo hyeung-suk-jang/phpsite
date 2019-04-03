@@ -7,3 +7,5 @@ while($row = mysqli_fetch_array($result)){
 	."/ 본문내용: ".$row['contents']."/ 작성일: ".$row['reg_date']."</a><br>";
 }
 ?>
+<input type="button" name="write" value="글쓰기" onclick="location.href='write.php'">
+

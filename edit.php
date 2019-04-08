@@ -16,6 +16,7 @@ $row = mysqli_fetch_array($result);
 <input type="button" value="리스트보기" id="list">
 </form>
 
+
 <script>
 	var write = document.getElementById("write");
 	var list = document.getElementById("list");

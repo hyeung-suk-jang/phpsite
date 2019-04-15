@@ -3,6 +3,7 @@ $username = $_REQUEST['username'];
 $title = $_REQUEST['boardtitle'];
 $contents = $_REQUEST['contents'];
 $idx =  $_REQUEST['idx'];
+
 include_once 'dbconn.php';
 
 echo $username ."<br>";

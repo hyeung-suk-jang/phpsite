@@ -1,17 +1,35 @@
+<?php
+session_start();
+?>
+<style>
+/*html태그를 예쁘게.*/
+.box{
+width:100px;height:1000px;border:1px solid red;
+}
+</style>
 <meta charset='utf-8'>
 <body id="body">
 글쓰기 페이지<br>
 <!--상대경로 : ./,../ 절대경로 : / -->
+<!--html은 구조를 설계.-->
 <form name="f1" action="write_ok.php">
-작성자 : <input type="text" name="username" id="username"><br>
+작성자 : <input type="text" name="username" id="username" value="<?=$_SESSION['userid'];?>"><br>
 글제목 : <input type="text" name="boardtitle" id="boardtitle"><br>
 글본문 : <textarea cols="50" rows="10" name="contents" id="contents"></textarea><br>
-<input type="button" value="글쓰기" id="write"><br>
+<input type="button" value="글쓰기완료" id="write"><br>
 <input type="button" value="리스트보기" id="list">
+<input type='radio' name='gender'>여자
+<input type='radio' name='gender'>남자
+<br>
+취미선택<br>
+<input type='checkbox' >농구
+<input type='checkbox' >축구
+
 </form>
-<div style="width:100px;height:1000px;border:1px solid red;">
+<div class='box'>
 </div>
 <script>
+//동작을 제어.
 var write = document.getElementById("write");
 console.dir(write);
 console.dir(window);
@@ -20,6 +38,11 @@ window.addEventListener('scroll',function(e){
 });
 
 write.addEventListener("click", function(e){
+//4가지방식.
+//id로 접근하기.
+//classname으로 접근하기.
+//tagname으로 접근하기.
+//query
 	var title = document.getElementById("boardtitle");
 	var username = document.getElementById("username");
 	var text = document.getElementById("contents");

@@ -1,3 +1,12 @@
+<?php
+//세션기능을 활성화 시키겠다.
+session_start();
+$issession = "notlogin";
+
+if(!empty($_SESSION['userid'])){
+	$issession = "login";
+}
+?>
 <meta charset='utf-8'>
 <style>
 .abc{
@@ -11,6 +20,7 @@
 게시판만들기<br>
 <input type="button" value="리스트보기" id="list">
 <input type="button" value="글쓰기" id="write" class="abc">
+<input type="button" value="로그인 하기" id="login">
 <div class="abc">
 </div>
 <script>
@@ -37,10 +47,20 @@ write.onclick = function(){
 var list = document.getElementById("list");
 list.onclick = function(){
 	//로그인여부.
-
-	location.href = 'list.php';
+	var issession = '<?=$issession?>';
+	//alert(issession);
+	if(issession =='notlogin'){
+		alert('로그인 후 이용가능합니다.');
+	}else{
+		location.href = 'list.php';
+	}
+//	location.href = 'list.php';
 }
 
+var login = document.getElementById("login");
+login.addEventListener("click",function(){
+	location.href= 'login.php';
+});
 //함수를 정의해 놓은 곳.
 function hamsu(abc){
 	abc = abc+2;

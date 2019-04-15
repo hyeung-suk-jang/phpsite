@@ -1,10 +1,10 @@
 <?php
+//php 문법.
 $username = $_REQUEST['username'];
 $title = $_REQUEST['boardtitle'];
 $contents = $_REQUEST['contents'];
 
 include_once 'dbconn.php';
-
 
 //select , insert, update, delete. select * from board, insert into board(칼럼명) values('데이터'
 //update board set name='홍길동' , age = 30 where idx = 2

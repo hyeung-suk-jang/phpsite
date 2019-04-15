@@ -21,7 +21,6 @@ $row = mysqli_fetch_array($result);
 	var write = document.getElementById("write");
 	var list = document.getElementById("list");
 
-
 	write.addEventListener('click',function(){
 		var title = document.getElementById("boardtitle");
         var username = document.getElementById("username");

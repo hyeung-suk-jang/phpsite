@@ -19,7 +19,7 @@ echo "작성일 : ".$row["reg_date"]."<br>";
 //댓글리스트 출력.
 $replyres = mysqli_query($connect_db, "SELECT * FROM reply WHERE boardidx=".$idx);
 while($row = mysqli_fetch_array($replyres)){
-	echo $row["username"]." ".$row["contents"]."<br>";
+	echo $row["username"]." ".$row["contents"]." ".$row['reg_date']."<br>";
 }
 ?>
 </div>
@@ -40,11 +40,13 @@ while($row = mysqli_fetch_array($replyres)){
 	var list = document.getElementById("list");
 
 	del.addEventListener('click',function(){
+		//조건문.
 		if(confirm("해당글을 삭제하시겠습니까?")){
 			location.href='del.php?idx=<?=$idx;?>';
 		}
 	});
 	edit.addEventListener("click",function(){
+
 		location.href="edit.php?idx=<?=$idx?>";
 	});
 	list.addEventListener("click",function(){
@@ -55,12 +57,16 @@ while($row = mysqli_fetch_array($replyres)){
 		//유효성 체크.
 		var replyval = document.getElementById("reply");
 		var username = document.getElementById("username");
-		if(!username.value){
+		//!:not연산자. 뒤에 있는 데이터를 boolean형 으로 변환한다음에 true를 -> false, false->true.
+		//"kdaksdksdj;" : true, "":false.
+		if(!username.value){//true -> 입력을 안했다.
 			alert('작성자를 입력해주세요');
 			username.focus();
-			return;
+			return;//밑에 있는 코드를 무시하고 바로 여기서 끝냄.
 		}
-		if(!replyval.value){
+	
+		// = : 할당연산자, == : 동등비교연산자.
+		if(replyval.value == ""){
 			alert('댓글을 입력해주세요');
 			replyval.focus();
 			return;
@@ -77,21 +83,24 @@ while($row = mysqli_fetch_array($replyres)){
 			username : username.value,
 			contents : replyval.value
 		};
-
-		$.ajax({
+		
+		//ajax.비동기 통신기법.
+		//$ = jQuery(함수)
+		jQuery.ajax({
 		  url: "addreply.php",
+		  //POST, GET
 		  method: "POST",
 		  data: senddata,
-			  //json, html
+			  //json : {"name":"value","name":"value"}, html : <ul><li></li><li></li></ul>
 		  dataType: "json",
-		  success:function(data){//data = {"result":"S","msg":"성공적으로 입력되었습니다."}
+		  success:function(data){//data = {"result":"S","msg":"성공적으로 입력되었습니다.","user":"
 		    console.log(data);
 			if(data.result == "S"){
 				alert(data.msg);
 				//append.
 				//var replylist = document.getElementById("replylist");
 
-				$("#replylist").append(username.value+ " " + replyval.value + "<br>"); 
+				$("#replylist").append(data.user+ " " + data.contents+ " "+data.reg_date+ "<br>"); 
 			}else{
 				alert("데이터가 정상처리 되지 않았습니다");
 			}

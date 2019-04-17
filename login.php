@@ -9,20 +9,25 @@ PW : <input type='password' name='pw' id='userpw'><br>
   crossorigin="anonymous"></script>
 <script>
 $("#btn").click(function(){
+	//자바스크립트 문법.
 	var id = $("#userid").val();
 	var pw = $("#userpw").val();
+	
+	//자바스크립트 문법. 객체리터럴 : {변수명:값,변수명:값}
 	var senddata = {
 		sendid:id,
 		sendpw:pw
 	}
+
 	$.ajax(
 	  {
+			//sender : 데이터를 전송.
 			url:'login_ok.php',
 			method:'post',
 			data:senddata,
 			dataType:'json',
 			//성공
-			success:function(rs){
+			success:function(rs){//{"result":"S","msg":"성공적으로 조회되었습니다.","userid":"azanghs"}
 				if(rs.result =='S'){
 					alert('로그인 성공');
 					location.href= 'index.php';

@@ -14,7 +14,6 @@ echo $result;
 
 //$mysqli = new mysqli($mysql_host, $mysql_user, $mysql_password, $mysql_db);
 
-echo $username.$title.$contents;
 
 ?>
 <script>

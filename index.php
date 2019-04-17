@@ -3,7 +3,9 @@
 session_start();
 $issession = "notlogin";
 
-if(!empty($_SESSION['userid'])){
+//php문법에서 : $_SESSION[''] : 웹서버에 저장된 세션변수. , $_REQUEST : 사용자가 전송한 데이터., $_SERVER : 웹서버가 실행시점부터 갖고 있는 변수값.
+
+if(!empty($_SESSION['userid'])){//안비어있습니까?=$_SESSION['userid']값이 존재합니까?
 	$issession = "login";
 }
 ?>
@@ -20,9 +22,24 @@ if(!empty($_SESSION['userid'])){
 게시판만들기<br>
 <input type="button" value="리스트보기" id="list">
 <input type="button" value="글쓰기" id="write" class="abc">
+<?php
+if($issession == "login"){
+?>
+<input type="button" value="로그아웃 하기" id="logout">
+<?php
+}else{
+?>
 <input type="button" value="로그인 하기" id="login">
+<input type="button" value="회원 가입" id ="join">
+<?php
+}
+?>
 <div class="abc">
 </div>
+<script
+  src="https://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
 <script>
 //변수선언 = 
 //document.getElementsByClassName
@@ -49,7 +66,9 @@ list.onclick = function(){
 	//로그인여부.
 	var issession = '<?=$issession?>';
 	//alert(issession);
-	if(issession =='notlogin'){
+	//조건문:if(조건문)
+
+	if(issession == 'notlogin'){
 		alert('로그인 후 이용가능합니다.');
 	}else{
 		location.href = 'list.php';
@@ -57,10 +76,50 @@ list.onclick = function(){
 //	location.href = 'list.php';
 }
 
+<?php
+if($issession == "login"){
+?>
+
+var logout = document.getElementById("logout");
+logout.addEventListener("click",function(){
+	$.ajax(
+	  {
+			//sender : 데이터를 전송.
+			url:'logout.php',
+			method:'post',
+			dataType:'json',
+			//성공
+			success:function(rs){
+				if(rs.result =='S'){
+					alert('로그아웃 성공');
+					location.reload();
+				}else{
+					alert(rs.msg);
+				}
+			},
+			error:function(result){
+				console.log(result);
+				alert("에러");
+			}
+		}	
+	);		
+});
+
+<?php
+}else{
+?>
 var login = document.getElementById("login");
 login.addEventListener("click",function(){
 	location.href= 'login.php';
 });
+var join = document.getElementById("join");
+join.addEventListener("click",function(){
+	location.href = 'join.php';
+});
+<?php
+}	
+?>
+
 //함수를 정의해 놓은 곳.
 function hamsu(abc){
 	abc = abc+2;

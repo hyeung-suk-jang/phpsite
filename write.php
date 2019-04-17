@@ -13,7 +13,7 @@ width:100px;height:1000px;border:1px solid red;
 <!--상대경로 : ./,../ 절대경로 : / -->
 <!--html은 구조를 설계.-->
 <form name="f1" action="write_ok.php">
-작성자 : <input type="text" name="username" id="username" value="<?=$_SESSION['userid'];?>"><br>
+작성자 : <input type="text" name="username" id="username" value="<?=$_SESSION['username'];?>"><br>
 글제목 : <input type="text" name="boardtitle" id="boardtitle"><br>
 글본문 : <textarea cols="50" rows="10" name="contents" id="contents"></textarea><br>
 <input type="button" value="글쓰기완료" id="write"><br>

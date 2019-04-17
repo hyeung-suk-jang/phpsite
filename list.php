@@ -55,7 +55,8 @@ while($row = mysqli_fetch_array($result)){
 </div>
 <span>단독으로 존재하는 span</span>
 
-<input type="button" name="write" value="글쓰기" onclick="location.href='write.php'">
+<input type="button" name="write" value="글쓰기" onclick="location.href='write.php'"><br>
+<input type="button" name='main' value="메인화면" onclick="location.href='index.php'">
 <script>
 //javascript => tag에 접근하는 방법.
 //document.getElementById("id")

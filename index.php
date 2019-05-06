@@ -23,11 +23,11 @@ if(!empty($_SESSION['userid'])){//안비어있습니까?=$_SESSION['userid']값�
 <input type="button" value="리스트보기" id="list">
 <input type="button" value="글쓰기" id="write" class="abc">
 <?php
-if($issession == "login"){
+if($issession == "login"){//이미 로그인 된 상태.
 ?>
 <input type="button" value="로그아웃 하기" id="logout">
 <?php
-}else{
+}else{// 로그인 안된 상태.
 ?>
 <input type="button" value="로그인 하기" id="login">
 <input type="button" value="회원 가입" id ="join">

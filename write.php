@@ -12,20 +12,22 @@ width:100px;height:1000px;border:1px solid red;
 글쓰기 페이지<br>
 <!--상대경로 : ./,../ 절대경로 : / -->
 <!--html은 구조를 설계.-->
-<form name="f1" action="write_ok.php">
+<form name="f1" action="write_ok.php" method="post" enctype="multipart/form-data">
 작성자 : <input type="text" name="username" id="username" value="<?=$_SESSION['username'];?>"><br>
 글제목 : <input type="text" name="boardtitle" id="boardtitle"><br>
 글본문 : <textarea cols="50" rows="10" name="contents" id="contents"></textarea><br>
-<input type="button" value="글쓰기완료" id="write"><br>
-<input type="button" value="리스트보기" id="list">
 <input type='radio' name='gender'>여자
 <input type='radio' name='gender'>남자
 <br>
 취미선택<br>
 <input type='checkbox' >농구
 <input type='checkbox' >축구
-
+<br>
+파일선택
+<input type='file' name="myfile"> 
 </form>
+<input type="button" value="글쓰기완료" id="write"><br>
+<input type="button" value="리스트보기" id="list">
 <div class='box'>
 </div>
 <script>

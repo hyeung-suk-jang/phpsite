@@ -3,16 +3,19 @@ session_start();
 
 include_once './dbconn.php';
 $idx = $_REQUEST['idx'];
+//조회수 카운트 증가.
+$result = mysqli_query($connect_db, "UPDATE BOARD SET VIEWCOUNT = VIEWCOUNT+1 WHERE IDX=".$idx);
 
 $result = mysqli_query($connect_db, "SELECT * FROM BOARD WHERE IDX=".$idx);
 //select * from board where idx = 7
 $row = mysqli_fetch_array($result);
 $userid = $row['userid'];
-
+$filename = $row['uploadfile'];
 echo "글쓴이 : ".$row['username']."<br>";
 echo "제목 : ".$row["title"]."<br>";
 echo "내용 : ".$row["contents"]."<br>";
 echo "작성일 : ".$row["reg_date"]."<br>";
+echo "첨부파일 : <a href='./uploads/$row[uploadfile]' id='download'>".$row['uploadfile']."</a><br>";
 ?>
 <?php
 if($userid == $_SESSION['userid']){
@@ -44,6 +47,9 @@ while($row = mysqli_fetch_array($replyres)){
 내용<input type="text" name="reply" id="reply" size="80">
 <input type="button" value="댓글완료" id="replywrite">
 </form>
+<form name="f3" id='f3' action='download.php'>
+<input type='hidden' name='filename' value='<?=$filename?>'>
+</form>
 <script
   src="https://code.jquery.com/jquery-1.12.4.js"
   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
@@ -60,7 +66,7 @@ while($row = mysqli_fetch_array($replyres)){
 	del.addEventListener('click',function(){
 		//조건문.
 		if(confirm("해당글을 삭제하시겠습니까?")){
-			location.href='del.php?idx=<?=$idx;?>';
+			location.href='del.php?idx=<?=$idx;?>&filename=<?=$filename;?>';
 		}
 	});
 	}
@@ -146,6 +152,8 @@ while($row = mysqli_fetch_array($replyres)){
 		// 5. 실제 데이터 전송(send() 메서드 이용)
 		xmlHttp.send(strParam);
 		*/
+
+		
 	});
 
 	// 6. 응답처리
@@ -168,5 +176,11 @@ while($row = mysqli_fetch_array($replyres)){
 			}
 		}
 	}
-
+	$(function(){
+		$("#download").click(function(e){
+			e.preventDefault();
+			form = $('#f3');
+			form.submit();
+		});
+	});
 </script>

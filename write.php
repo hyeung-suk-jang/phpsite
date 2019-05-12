@@ -1,5 +1,14 @@
 <?php
 session_start();
+$writetype  = "";
+$idx = "";
+if(isset($_REQUEST['type'])){
+	$writetype = $_GET['type'];//answer	
+}
+if(isset($_REQUEST['idx'])){
+	$idx = $_REQUEST['idx'];
+}
+//echo $writetype ;
 ?>
 <style>
 /*html태그를 예쁘게.*/
@@ -13,6 +22,8 @@ width:100px;height:1000px;border:1px solid red;
 <!--상대경로 : ./,../ 절대경로 : / -->
 <!--html은 구조를 설계.-->
 <form name="f1" action="write_ok.php" method="post" enctype="multipart/form-data">
+<input type='hidden' name='idx' value='<?=$idx;?>'>
+<input type='hidden' name='type' value='<?=$writetype?>'>
 작성자 : <input type="text" name="username" id="username" value="<?=$_SESSION['username'];?>"><br>
 글제목 : <input type="text" name="boardtitle" id="boardtitle"><br>
 글본문 : <textarea cols="50" rows="10" name="contents" id="contents"></textarea><br>
@@ -25,11 +36,11 @@ width:100px;height:1000px;border:1px solid red;
 <br>
 파일선택
 <input type='file' name="myfile"> 
+<input type='checkbox' name='mail' value="chk">메일발송하기
+<input type='checkbox' name='sms' value='sms'>문자발송하기
 </form>
 <input type="button" value="글쓰기완료" id="write"><br>
 <input type="button" value="리스트보기" id="list">
-<div class='box'>
-</div>
 <script>
 //동작을 제어.
 var write = document.getElementById("write");

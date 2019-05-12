@@ -25,7 +25,9 @@ if($userid == $_SESSION['userid']){
 <?php
 }
 ?>
-<input type="button" name="list" value="리스트로 돌아가기" id="list"><br><br>
+<input type="button" name="list" value="리스트로 돌아가기" id="list">
+<input type='button' name='answer' value='답글쓰기' id='answer'>
+<br><br>
 <div id="replylist">
 <?php
 //댓글리스트 출력.
@@ -58,9 +60,13 @@ while($row = mysqli_fetch_array($replyres)){
 	
 	var del = document.getElementById("del");
 	var edit = document.getElementById("edit");
-	
+	var answer = document.getElementById("answer");
 
 	var list = document.getElementById("list");
+	
+	answer.addEventListener("click",function(){
+		location.href = 'write.php?type=answer&idx=<?=$idx;?>';
+	});
 
 	if(del){
 	del.addEventListener('click',function(){
